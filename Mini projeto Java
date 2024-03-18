@@ -1,0 +1,127 @@
+// Classe abstrata Livro
+ // Atributos comuns a todos os livros
+    public abstract class Livro {
+    private String titulo;
+    private String autor;
+    private int anoPublicacao;
+
+    // Construtor
+    public Livro(String titulo, String autor, int anoPublicacao) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anoPublicacao = anoPublicacao;
+    }
+
+    // Método abstrato para mostrar detalhes
+    public abstract void mostrarDetalhes();
+
+    // Getters e setters
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public int getAnoPublicacao() {
+        return anoPublicacao;
+    }
+
+    public void setAnoPublicacao(int anoPublicacao) {
+        this.anoPublicacao = anoPublicacao;
+    }
+}
+
+// Classe LivroFisico que herda de Livro
+public class LivroFisico extends Livro {
+    // Atributo específico para livro físico
+    private int numeroPaginas;
+
+    // Construtor
+    public LivroFisico(String titulo, String autor, int anoPublicacao, int numeroPaginas) {
+        super(titulo, autor, anoPublicacao);
+        this.numeroPaginas = numeroPaginas;
+    }
+
+    // Sobrescrita do método mostrarDetalhes
+    @Override
+    public void mostrarDetalhes() {
+        System.out.println("Livro físico:");
+        System.out.println("Título: " + getTitulo());
+        System.out.println("Autor: " + getAutor());
+        System.out.println("Ano de publicação: " + getAnoPublicacao());
+        System.out.println("Número de páginas: " + numeroPaginas);
+    }
+}
+
+// Classe LivroDigital que herda de Livro
+public class LivroDigital extends Livro {
+    // Atributo específico para livro digital
+    private String formatoArquivo;
+
+    // Construtor
+    public LivroDigital(String titulo, String autor, int anoPublicacao, String formatoArquivo) {
+        super(titulo, autor, anoPublicacao);
+        this.formatoArquivo = formatoArquivo;
+    }
+
+    // Sobrescrita do método mostrarDetalhes
+    @Override
+    public void mostrarDetalhes() {
+        System.out.println("Livro digital:");
+        System.out.println("Título: " + getTitulo());
+        System.out.println("Autor: " + getAutor());
+        System.out.println("Ano de publicação: " + getAnoPublicacao());
+        System.out.println("Formato do arquivo: " + formatoArquivo);
+    }
+}
+
+// Interface BibliotecaAcoes
+public interface BibliotecaAcoes {
+    void adicionarLivro(Livro livro);
+    void listarLivros();
+}
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Classe que implementa a interface BibliotecaAcoes
+public class Biblioteca implements BibliotecaAcoes {
+    // Coleção de objetos Livro
+    private List<Livro> livros;
+
+    // Construtor
+    public Biblioteca() {
+        this.livros = new ArrayList<>();
+    }
+
+    // Implementação do método adicionarLivro
+    @Override
+    public void adicionarLivro(Livro livro) {
+        livros.add(livro);
+        System.out.println("Livro adicionado à biblioteca: " + livro.getTitulo());
+    }
+
+    // Implementação do método listarLivros
+    @Override
+    public void listarLivros() {
+        if (livros.isEmpty()) {
+            System.out.println("Biblioteca vazia.");
+        } else {
+            System.out.println("Livros na biblioteca:");
+            for (Livro livro : livros) {
+                livro.mostrarDetalhes();
+                System.out.println();
+            }
+        }
+    }
+}
